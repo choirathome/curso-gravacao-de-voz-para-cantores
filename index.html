@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravação de Voz para Cantores | Curso Online com Método SpecVox</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Swiper.js para Carrosséis -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #fe9e2c;
+            --dark-color: #1b2335;
+            --light-color: #ffffff;
+            --gray-color: #f7f9fa;
+            --text-color: #34495e;
+        }
+
+        /* --- Reset Básico e Configurações Globais --- */
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Estrutura e Layout --- */
+        .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+        section { 
+            padding: 80px 0; 
+            text-align: center; 
+        }
+        section:nth-child(even) { background-color: var(--gray-color); }
+
+        /* --- Tipografia --- */
+        h1, h2, h3 { color: var(--dark-color); font-weight: 700; line-height: 1.2; }
+        h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 15px; }
+        h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 40px; position: relative; }
+        h2::after { content: ''; display: block; width: 80px; height: 4px; background-color: var(--primary-color); margin: 20px auto 0; border-radius: 2px; }
+        .subheadline { font-size: 1.2em; max-width: 700px; margin: 0 auto 30px; opacity: 0.9; }
+
+        /* --- Componentes e Elementos de UI --- */
+        .cta-button { display: inline-block; background: linear-gradient(45deg, var(--primary-color), #ffb854); color: var(--light-color); padding: 18px 45px; font-size: 1.2em; font-weight: 700; text-decoration: none; border-radius: 50px; text-transform: uppercase; box-shadow: 0 8px 25px rgba(254, 158, 44, 0.4); transition: all 0.3s ease; border: none; }
+        .cta-button:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 30px rgba(254, 158, 44, 0.6); }
+
+        .video-placeholder { background-color: #000; width: 100%; aspect-ratio: 16 / 9; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5em; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .payment-info { color: #888; font-size: 0.9em; margin-top: 15px;}
+        
+        .problem-list { list-style: none; padding: 0; max-width: 650px; margin: 0 auto; text-align: left; }
+        .problem-list li { background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23fe9e2c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>') no-repeat left center; background-size: 18px; padding-left: 40px; margin-bottom: 20px; font-size: 1.1em; }
+        
+        /* --- Carrossel de Streaming --- */
+        .streaming-carousel { padding: 20px 0; }
+        .streaming-icon { text-align: center; transition: transform 0.3s; display: block; text-decoration: none; }
+        .streaming-icon i { font-size: 45px; margin-bottom: 10px; color: #aaa; transition: all 0.3s; }
+        .streaming-icon p { margin: 0; font-weight: 600; color: #aaa; transition: color 0.3s; font-size: 0.9em; }
+        .swiper-slide-active .streaming-icon { transform: scale(1.1); }
+        .swiper-slide-active .streaming-icon i { color: var(--dark-color); }
+        .swiper-slide-active .streaming-icon p { color: var(--dark-color); }
+
+        /* --- Acordeão para Currículo e FAQ --- */
+        .accordion .accordion-item { margin-top: 8px; }
+        .accordion .accordion-header { background-color: var(--light-color); color: var(--dark-color); cursor: pointer; padding: 20px; width: 100%; border: 1px solid #e0e0e0; text-align: left; outline: none; font-size: 1.2em; font-weight: 600; transition: background-color 0.4s ease; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .accordion .accordion-header:hover, .accordion .accordion-header.active { background-color: #fff8ed; border-color: var(--primary-color); }
+        .accordion .accordion-header .arrow { font-size: 1.5em; transition: transform 0.3s ease; font-weight: bold; color: var(--primary-color); }
+        .accordion .accordion-header.active .arrow { transform: rotate(180deg); }
+        .accordion .accordion-content { padding: 0 20px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; text-align: left; border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; }
+        .accordion-content ul { list-style: none; padding: 20px 0; margin: 0; }
+        .accordion-content li { padding: 10px 0 10px 35px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23fe9e2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l7 4-7 4z"></path></svg>') no-repeat left center; background-size: 20px; opacity: 0.9; }
+        .accordion-content p { padding: 20px 5px; margin: 0; }
+
+        /* --- Seção do Instrutor --- */
+        .instructor { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; text-align: left; }
+        .instructor-photo { flex-shrink: 0; }
+        .instructor-photo img { width: 250px; height: 250px; object-fit: cover; border-radius: 50%; border: 6px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        /* --- Seção de Bônus --- */
+        .bonus-card { background: var(--light-color); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; flex-wrap: wrap; align-items: center; text-align: left; overflow: hidden; }
+        .bonus-image { flex: 1 1 200px; align-self: stretch; max-width: 25%; }
+        .bonus-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .bonus-text { flex: 2 1 300px; padding: 40px; }
+        .bonus-text span { background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 50px; font-weight: 700; text-transform: uppercase; font-size: 0.8em; }
+        .bonus-text h3 { margin-top: 20px; font-size: 1.8em; }
+
+        /* --- Carrossel de Depoimentos e Lightbox --- */
+        .testimonials-carousel { padding: 20px; }
+        .testimonial-card img { width: 100%; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease; cursor: pointer; }
+        .testimonial-card img:hover { transform: scale(1.03); }
+        
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; display: none; align-items: center; justify-content: center; }
+        .lightbox.active { display: flex; }
+        .lightbox .swiper-container { width: 90%; height: 90%; }
+        .lightbox .swiper-slide { display: flex; align-items: center; justify-content: center; }
+        .lightbox .swiper-slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; z-index: 1001; }
+        .lightbox .swiper-button-next, .lightbox .swiper-button-prev { color: var(--primary-color); }
+
+        /* --- Oferta --- */
+        .offer-box { background-color: var(--light-color); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); text-align: center; border-top: 8px solid var(--primary-color); }
+        .offer-box ul { list-style: none; padding: 0; margin-bottom: 30px; text-align: left; display: inline-block; }
+        .offer-box ul li { margin-bottom: 12px; font-size: 1.1em; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23fe9e2c" stroke="%23ffffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>') no-repeat left center; background-size: 22px; padding-left: 40px; }
+        .price .old-price { font-size: 1.5em; text-decoration: line-through; color: #aaa; }
+        .price .new-price { font-size: 3.5em; font-weight: 700; color: var(--dark-color); margin: 5px 0; }
+        .price .new-price span { font-size: 0.5em; font-weight: 400; }
+        
+        /* --- Rodapé --- */
+        footer { background-color: var(--dark-color); color: var(--light-color); text-align: center; padding: 30px; }
+        
+        @media (max-width: 768px) {
+            .instructor { text-align: center; }
+            .instructor-photo { margin: 0 auto 20px; }
+            .bonus-image { max-height: 200px; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SEÇÃO 1: O GANCHO INICIAL -->
+    <section id="hero">
+        <div class="container">
+            <h1>Sua voz soa amadora nas gravações?</h1>
+            <p class="subheadline">Descubra como se ouvir com a clareza de um profissional. O curso definitivo para cantores que desejam dominar a arte da gravação e da autoanálise vocal com o exclusivo Método SpecVox, mesmo usando equipamentos simples.</p>
+            <div class="video-placeholder">[ VÍDEO DE VENDAS AQUI ]</div>
+            <a href="#oferta" class="cta-button">Quero gravar minha voz com qualidade</a>
+            <p class="payment-info">Pagamento seguro via Cartão, PIX e Boleto.</p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2: APRESENTAÇÃO DO PROBLEMA -->
+    <section id="problema">
+        <div class="container">
+            <h2>Você se identifica com algum desses problemas?</h2>
+            <ul class="problem-list">
+                <li>Sua voz soa fina, sem corpo e diferente do que você ouve na sua cabeça?</li>
+                <li>Você se sente perdido(a) com programas de gravação complicados e cheios de botões?</li>
+                <li>Você não sabe como analisar sua própria gravação para identificar erros de ritmo ou afinação?</li>
+                <li>Acha que precisa de um estúdio caro para ter um som de qualidade?</li>
+                <li>Você grava várias vezes, mas nunca fica satisfeito(a) com o resultado final?</li>
+            </ul>
+             <p style="margin-top: 40px; font-weight: 600; font-size: 1.1em;">Se você respondeu 'sim' para qualquer uma dessas perguntas, este curso foi desenhado para você.</p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: PROVA COMPROVADA -->
+    <section id="prova">
+        <div class="container">
+            <h2>Como Transformamos Iniciantes em Artistas Publicados?</h2>
+            <p class="subheadline">A Escolha da Ferramenta Certa e a Prova de que Funciona.</p>
+            <p>Nós entendemos que a tecnologia pode ser intimidante. É por isso que este curso é baseado no Soundtrap, um estúdio de gravação online pensado para ser simples e intuitivo. Sem instalações complicadas ou centenas de botões confusos. Acreditamos que a ferramenta deve ser um meio, e não um obstáculo para sua arte.</p>
+            <p style="font-size: 1.2em; font-weight: 700; color: var(--dark-color); margin-top: 20px;">Usando essa abordagem focada na simplicidade, o projeto <strong>Choir at Home já produziu e lançou mais de 60 singles</strong> com a participação de cantores leigos em música, muitos dos quais nunca haviam gravado a própria voz antes.</p>
+            
+            <h3 style="margin-top: 50px; color: var(--dark-color);">Ouça os Resultados Você Mesmo:</h3>
+            <div class="swiper-container streaming-carousel">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><a href="https://music.apple.com/br/artist/choir-at-home/1641729969" target="_blank" class="streaming-icon"><i class="fab fa-apple"></i><p>Apple Music</p></a></div>
+                    <div class="swiper-slide"><a href="https://music.amazon.com.br/artists/B0BCH7525V" target="_blank" class="streaming-icon"><i class="fab fa-amazon"></i><p>Amazon Music</p></a></div>
+                    <div class="swiper-slide"><a href="https://open.spotify.com/intl-pt/artist/3ylMKdDFVG1nXRHq4J3SN4" target="_blank" class="streaming-icon"><i class="fab fa-spotify"></i><p>Spotify</p></a></div>
+                    <div class="swiper-slide"><a href="https://www.deezer.com/en/artist/181627807" target="_blank" class="streaming-icon"><i class="fab fa-deezer"></i><p>Deezer</p></a></div>
+                    <div class="swiper-slide"><a href="https://music.youtube.com/channel/UCCcx1gUdRkGweH0pLPKoitQ" target="_blank" class="streaming-icon"><i class="fab fa-youtube"></i><p>YouTube Music</p></a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SEÇÃO 4: APRESENTAÇÃO DA SOLUÇÃO -->
+    <section id="metodo">
+        <div class="container">
+            <h2>A solução não é um equipamento novo, é um método inteligente: Apresentando o SpecVox</h2>
+            <p class="subheadline">O Método SpecVox foi criado após anos de experiência prática, entendendo que o maior avanço de um cantor vem da autoanálise crítica. É o único método que ensina você a usar a <strong>inspeção visual</strong> da sua gravação como um espelho da sua voz. Você vai aprender a <em>ver</em> seu ritmo, sua afinação e sua intensidade, ganhando uma clareza que só a audição não permite.</p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 5: CONTEÚDO DO CURSO -->
+    <section id="curriculo">
+        <div class="container">
+            <h2>O Caminho Completo: A Estrutura Detalhada do Curso</h2>
+            <div class="accordion" id="curriculum-accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 1: Bem-vindo(a) ao Seu Estúdio Pessoal! <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><ul><li>Aula 1.1: Chega de Medo da Tecnologia!</li><li>Aula 1.2: Por que Aprender Comigo?</li><li>Aula 1.3: A Nossa Filosofia de Ensino: O Método SpecVox</li><li>Aula 1.4: O que você REALMENTE precisa para gravar?</li><li>Aula 1.5: Criando sua Conta Gratuita no Soundtrap</li><li>Aula 1.6: Nossa Comunidade de Apoio (Grupo do WhatsApp)</li></ul></div>
+                </div>
+                 <div class="accordion-item">
+                    <button class="accordion-header">Módulo 2: Do Zero à Primeira Gravação <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><ul><li>Aula 2.1: Seu Primeiro Projeto e os 5 Botões Essenciais</li><li>Aula 2.2: Configurando seu Microfone</li><li>Aula 2.3: Sua Primeira Gravação (Ainda sem cantar!)</li><li>Aula 2.4: Gravando no Ritmo (O Metrônomo)</li></ul></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 3: Gravando a Voz na Prática (O Projeto Real) <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><ul><li>Aula 3.1: Trazendo a Música para Dentro do seu Projeto</li><li>Aula 3.2: O Momento da Verdade: Gravando sua Voz sobre a Guia</li><li>Aula 3.3: Ajustando os Volumes</li><li>Aula 3.4: Como Fazer uma Cópia Segura do Projeto ("Save As")</li></ul></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 4: Análise e Refinamento com o Método SpecVox <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><ul><li>Aula 4.1: A Tesoura Mágica: Cortando o que não Serve</li><li>Aula 4.2: Mergulhando no Método SpecVox (A Aplicação Prática)</li><li>Aula 4.3: SpecVox em Ação: Análise de TEMPO</li><li>Aula 4.4: SpecVox em Ação: Análise MELÓDICA</li><li>Aula 4.5: SpecVox em Ação: Análise de INTENSIDADE</li><li>Aula 4.6: Deixando o Soundtrap mais Leve (Otimização)</li><li>Aula 4.7: Avaliação SpecVox: Comunicação por Cores</li><li>Aula 4.8: Um Toque de Mágica: O Reverb (Finalização)</li></ul></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 5: Entregando o Pacote e Colaborando (A Finalização) <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><ul><li>Aula 5.1: Salvando seu Projeto</li><li>Aula 5.2: Exportando e Importando Faixas (Backup e Colaboração)</li><li>Aula 5.3: Exportando sua Voz para Entrega (O Arquivo Final)</li><li>Aula 5.4: O Soundtrap Mudou! E Agora? (Navegando em um App Vivo)</li><li>Aula 5.5: O Padrão "Choir at Home": Como Nomear e Enviar</li></ul></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 6: CREDIBILIDADE DO INSTRUTOR -->
+    <section id="instrutor">
+        <div class="container instructor">
+            <div class="instructor-photo">
+                <img src="https://i.imgur.com/jPKOzlW.jpeg" alt="Foto de Rafael Caldas" onerror="this.onerror=null;this.src='https://placehold.co/250x250/fe9e2c/ffffff?text=Rafael+Caldas';">
+            </div>
+            <div class="instructor-bio">
+                <h2>Quem Vai Te Guiar</h2>
+                <h3>Rafael Caldas, Maestro</h3>
+                <p>Doutorando em Processos de Criação Musical na USP, possui Mestrado em Musicologia pela UNIRIO e Bacharelado em Regência e Licenciatura em Música pela UFRJ. Com vasta experiência regendo coros profissionais e amadores, especializou-se, através do projeto Choir at Home, em solucionar os desafios reais de cantores que gravam em casa com os mais diversos equipamentos, desenvolvendo métodos práticos para extrair o melhor de cada voz.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 7: PROVA SOCIAL -->
+    <section id="depoimentos">
+        <div class="container">
+            <h2>Resultados Reais: Veja o Que os Alunos Dizem</h2>
+            <div class="swiper-container testimonials-carousel">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide testimonial-card"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d1.png" alt="Depoimento 1" data-index="0"></div>
+                    <div class="swiper-slide testimonial-card"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d3.png" alt="Depoimento 2" data-index="1"></div>
+                    <div class="swiper-slide testimonial-card"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d4.png" alt="Depoimento 3" data-index="2"></div>
+                    <div class="swiper-slide testimonial-card"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d8.png" alt="Depoimento 4" data-index="3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 8: A OFERTA -->
+    <section id="oferta">
+        <div class="container">
+            <div class="offer-box">
+                <h2>Faça sua Inscrição e Transforme sua Voz Hoje Mesmo</h2>
+                <ul>
+                    <li>Acesso <strong>vitalício</strong> ao curso completo</li>
+                    <li>Domínio do exclusivo <strong>Método SpecVox</strong></li>
+                    <li>Acesso à <strong>comunidade de apoio</strong> no WhatsApp</li>
+                    <li>Suporte para tirar dúvidas diretamente com o professor</li>
+                    <li>Todas as <strong>futuras atualizações</strong> do curso</li>
+                </ul>
+
+                <div class="bonus-card" style="margin: 30px auto; max-width: 800px;">
+                    <div class="bonus-image">
+                        <img src="https://i.imgur.com/qax0FwU.png" alt="Bônus Montando Seus Playbacks">
+                    </div>
+                    <div class="bonus-text">
+                        <span>BÔNUS EXCLUSIVO</span>
+                        <h3>Montando Seus Playbacks</h3>
+                        <p>Aprenda a criar suas próprias bases e playbacks de estudo diretamente no Soundtrap para praticar qualquer música que desejar.</p>
+                    </div>
+                </div>
+
+                <div class="price">
+                    <span class="old-price">De R$ 97,00</span>
+                    <div class="new-price"><span>Por apenas</span> R$ 57,00</div>
+                    <p>(Pagamento único)</p>
+                </div>
+                <a href="https://pag.ae/7_UtAvA17" target="_blank" class="cta-button">Quero garantir minha vaga com desconto</a>
+                <p style="margin-top: 15px; font-size: 0.9em;">Pagamento 100% seguro via PagSeguro.<br>Acesso imediato após a confirmação.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SEÇÃO 9: PERGUNTAS FREQUENTES -->
+    <section id="faq">
+        <div class="container">
+            <h2>Perguntas Frequentes</h2>
+            <div class="accordion" id="faq-accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">Para quem é este curso? <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><p>Para cantores de todos os níveis, do amador que nunca gravou ao profissional, que desejam autonomia para gravar e analisar a própria voz com qualidade, sem depender de equipamentos ou softwares complicados.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Preciso de equipamentos caros? <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><p>Não! O curso é pensado para a sua realidade. Ensinamos a extrair o melhor som possível do equipamento que você já tem, seja o microfone do seu celular, um fone com microfone ou um microfone USB simples.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Por quanto tempo terei acesso? <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><p>O acesso é vitalício! Você pode assistir às aulas no seu ritmo, quantas vezes quiser, e terá acesso a todas as futuras atualizações sem custo adicional.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Como recebo o acesso ao curso? <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><p>Imediatamente após a confirmação do pagamento pelo PagSeguro, você receberá um e-mail com todas as instruções e o link para acessar a área de membros do curso.</p></div>
+                </div>
+                 <div class="accordion-item">
+                    <button class="accordion-header">E se eu tiver dúvidas durante o curso? <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><p>Você não estará sozinho! Oferecemos múltiplos canais de suporte: nossa comunidade de apoio exclusiva no WhatsApp para interação com colegas, a seção de comentários dentro da própria plataforma de aulas, e um e-mail de contato direto com o professor para questões mais específicas.</p></div>
+                </div>
+                 <div class="accordion-item">
+                    <button class="accordion-header">Posso compartilhar o acesso aos conteúdos? <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><p>Não. O acesso ao curso é pessoal e intransferível, válido apenas para o aluno que realizou a matrícula. O compartilhamento de login e senha é proibido e monitorado. Essa prática pode resultar no bloqueio imediato e permanente do seu acesso, sem direito a reembolso, além de ser uma violação de direitos autorais (Art. 184 do Código Penal).</p></div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">O pagamento é seguro? <span class="arrow">▾</span></button>
+                    <div class="accordion-content"><p>Sim. Todo o processo de pagamento é gerenciado pelo PagSeguro, uma das maiores e mais seguras plataformas de pagamento do Brasil, que protege seus dados e sua compra.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 10: RODAPÉ -->
+    <footer>
+        <div class="container">
+            <p>© 2025 - Choir at Home & SpecVox - Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox para Depoimentos -->
+    <div class="lightbox" id="testimonial-lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="swiper-container lightbox-carousel">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d1.png" alt="Depoimento 1"></div>
+                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d3.png" alt="Depoimento 2"></div>
+                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d4.png" alt="Depoimento 3"></div>
+                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d8.png" alt="Depoimento 4"></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- Script para Acordeões (Currículo e FAQ) ---
+            function initAccordion(accordionId) {
+                const accordion = document.getElementById(accordionId);
+                if (!accordion) return;
+                
+                const headers = accordion.querySelectorAll(".accordion-header");
+                headers.forEach(header => {
+                    header.addEventListener("click", function() {
+                        const currentlyActive = accordion.querySelector(".accordion-header.active");
+                        if (currentlyActive && currentlyActive !== this) {
+                            currentlyActive.classList.remove("active");
+                            currentlyActive.nextElementSibling.style.maxHeight = null;
+                        }
+
+                        this.classList.toggle("active");
+                        const content = this.nextElementSibling;
+                        if (content.style.maxHeight) {
+                            content.style.maxHeight = null;
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                        }
+                    });
+                });
+            }
+            initAccordion('curriculum-accordion');
+            initAccordion('faq-accordion');
+
+            // --- Script para Carrossel de Streaming ---
+            const streamingSwiper = new Swiper('.streaming-carousel', {
+                loop: true,
+                slidesPerView: 3,
+                spaceBetween: 20,
+                centeredSlides: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 5,
+                        spaceBetween: 30,
+                    }
+                },
+                initialSlide: 2 // Começa com o Spotify (índice 2) no centro
+            });
+
+            // --- Script para Carrossel de Depoimentos ---
+            const testimonialsSwiper = new Swiper('.testimonials-carousel', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    960: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                }
+            });
+
+            // --- Script para Lightbox dos Depoimentos ---
+            const lightbox = document.getElementById('testimonial-lightbox');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const testimonialImages = document.querySelectorAll('.testimonial-card img');
+            
+            const lightboxSwiper = new Swiper('.lightbox-carousel', {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            testimonialImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    const index = parseInt(img.dataset.index, 10);
+                    lightbox.classList.add('active');
+                    lightboxSwiper.slideTo(index, 0); // Vai para o slide clicado sem animação
+                });
+            });
+
+            lightboxClose.addEventListener('click', () => {
+                lightbox.classList.remove('active');
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                }
+            });
+
+            // --- SCRIPT PARA CORRIGIR ALTURA NO GOOGLE SITES ---
+            const body = document.body;
+            if ('ResizeObserver' in window) {
+                const observer = new ResizeObserver(() => {
+                    if (parent.postMessage) {
+                        parent.postMessage({ frameHeight: body.scrollHeight }, '*');
+                    }
+                });
+                observer.observe(body);
+            }
+        });
+    </script>
+</body>
+</html>
+
