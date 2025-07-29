@@ -77,12 +77,14 @@
         .accordion .accordion-item { margin-top: 8px; }
         .accordion .accordion-header { background-color: var(--light-color); color: var(--dark-color); cursor: pointer; padding: 20px; width: 100%; border: 1px solid #e0e0e0; text-align: left; outline: none; font-size: 1.2em; font-weight: 600; transition: background-color 0.4s ease; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
         .accordion .accordion-header:hover, .accordion .accordion-header.active { background-color: #fff8ed; border-color: var(--primary-color); }
-        .accordion .accordion-header .arrow { font-size: 1.5em; transition: transform 0.3s ease; font-weight: bold; color: var(--primary-color); }
+        .accordion .accordion-header .arrow { transition: transform 0.3s ease; color: var(--primary-color); width: 1em; height: 1em; }
         .accordion .accordion-header.active .arrow { transform: rotate(180deg); }
-        .accordion .accordion-content { padding: 0 20px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; text-align: left; border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; }
+        .accordion-content { padding: 0 20px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; text-align: left; border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; }
         .accordion-content ul { list-style: none; padding: 20px 0; margin: 0; }
         .accordion-content li { padding: 10px 0 10px 35px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23fe9e2c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l7 4-7 4z"></path></svg>') no-repeat left center; background-size: 20px; opacity: 0.9; }
         .accordion-content p { padding: 20px 5px; margin: 0; }
+        .module-header-content { display: flex; flex-direction: row; align-items: center; gap: 10px; }
+        .module-title { font-weight: 400; font-size: 0.9em; }
 
         /* --- Seção do Instrutor --- */
         .instructor { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; text-align: left; }
@@ -96,6 +98,7 @@
         .bonus-text { flex: 2 1 300px; padding: 40px; }
         .bonus-text span { background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 50px; font-weight: 700; text-transform: uppercase; font-size: 0.8em; }
         .bonus-text h3 { margin-top: 20px; font-size: 1.8em; }
+        .bonus-image .mobile-only { display: none; }
 
         /* --- Carrossel de Depoimentos e Lightbox --- */
         .testimonials-carousel { padding: 20px; }
@@ -106,6 +109,7 @@
         .lightbox.active { display: flex; }
         .lightbox .swiper-container { width: 90%; height: 90%; }
         .lightbox .swiper-slide { display: flex; align-items: center; justify-content: center; }
+        .lightbox .swiper-zoom-container { width: 100%; height: 100%; }
         .lightbox .swiper-slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; z-index: 1001; }
         .lightbox .swiper-button-next, .lightbox .swiper-button-prev { color: var(--primary-color); }
@@ -121,10 +125,22 @@
         /* --- Rodapé --- */
         footer { background-color: var(--dark-color); color: var(--light-color); text-align: center; padding: 30px; }
         
+        /* --- Media Queries para Responsividade --- */
         @media (max-width: 768px) {
             .instructor { text-align: center; }
             .instructor-photo { margin: 0 auto 20px; }
-            .bonus-image { max-height: 200px; max-width: 100%; }
+            .bonus-card { flex-direction: column; }
+            .bonus-image { max-width: 100%; }
+            .bonus-image .desktop-only { display: none; }
+            .bonus-image .mobile-only { display: block; }
+            .bonus-text { padding: 30px; }
+            .price .new-price { font-size: 2.8em; }
+            .price .new-price span { display: block; }
+            .cta-button { padding: 15px 30px; font-size: 1.1em; }
+            .accordion .accordion-header .arrow { font-size: 1em; }
+            .module-header-content { flex-direction: column; align-items: flex-start; gap: 2px; }
+            .module-title { font-size: 0.8em; }
+            #hero .cta-button { font-size: 1em; padding: 15px 25px; }
         }
     </style>
 </head>
@@ -136,7 +152,7 @@
             <h1>Sua voz soa amadora nas gravações?</h1>
             <p class="subheadline">Descubra como se ouvir com a clareza de um profissional. O curso definitivo para cantores que desejam dominar a arte da gravação e da autoanálise vocal com o exclusivo Método SpecVox, mesmo usando equipamentos simples.</p>
             <div class="video-placeholder">[ VÍDEO DE VENDAS AQUI ]</div>
-            <a href="#oferta" class="cta-button">Quero gravar minha voz com qualidade</a>
+            <a href="#oferta" class="cta-button">QUERO GRAVAR A VOZ</a>
             <p class="payment-info">Pagamento seguro via Cartão, PIX e Boleto.</p>
         </div>
     </section>
@@ -191,23 +207,23 @@
             <h2>O Caminho Completo: A Estrutura Detalhada do Curso</h2>
             <div class="accordion" id="curriculum-accordion">
                 <div class="accordion-item">
-                    <button class="accordion-header">Módulo 1: Bem-vindo(a) ao Seu Estúdio Pessoal! <span class="arrow">▾</span></button>
+                    <button class="accordion-header"><div class="module-header-content"><span>Módulo 1:</span><span class="module-title">Bem-vindo(a) ao Seu Estúdio Pessoal!</span></div> <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><ul><li>Aula 1.1: Chega de Medo da Tecnologia!</li><li>Aula 1.2: Por que Aprender Comigo?</li><li>Aula 1.3: A Nossa Filosofia de Ensino: O Método SpecVox</li><li>Aula 1.4: O que você REALMENTE precisa para gravar?</li><li>Aula 1.5: Criando sua Conta Gratuita no Soundtrap</li><li>Aula 1.6: Nossa Comunidade de Apoio (Grupo do WhatsApp)</li></ul></div>
                 </div>
                  <div class="accordion-item">
-                    <button class="accordion-header">Módulo 2: Do Zero à Primeira Gravação <span class="arrow">▾</span></button>
+                    <button class="accordion-header"><div class="module-header-content"><span>Módulo 2:</span><span class="module-title">Do Zero à Primeira Gravação</span></div> <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><ul><li>Aula 2.1: Seu Primeiro Projeto e os 5 Botões Essenciais</li><li>Aula 2.2: Configurando seu Microfone</li><li>Aula 2.3: Sua Primeira Gravação (Ainda sem cantar!)</li><li>Aula 2.4: Gravando no Ritmo (O Metrônomo)</li></ul></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Módulo 3: Gravando a Voz na Prática (O Projeto Real) <span class="arrow">▾</span></button>
+                    <button class="accordion-header"><div class="module-header-content"><span>Módulo 3:</span><span class="module-title">Gravando a Voz na Prática</span></div> <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><ul><li>Aula 3.1: Trazendo a Música para Dentro do seu Projeto</li><li>Aula 3.2: O Momento da Verdade: Gravando sua Voz sobre a Guia</li><li>Aula 3.3: Ajustando os Volumes</li><li>Aula 3.4: Como Fazer uma Cópia Segura do Projeto ("Save As")</li></ul></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Módulo 4: Análise e Refinamento com o Método SpecVox <span class="arrow">▾</span></button>
+                    <button class="accordion-header"><div class="module-header-content"><span>Módulo 4:</span><span class="module-title">Análise e Refinamento com o Método SpecVox</span></div> <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><ul><li>Aula 4.1: A Tesoura Mágica: Cortando o que não Serve</li><li>Aula 4.2: Mergulhando no Método SpecVox (A Aplicação Prática)</li><li>Aula 4.3: SpecVox em Ação: Análise de TEMPO</li><li>Aula 4.4: SpecVox em Ação: Análise MELÓDICA</li><li>Aula 4.5: SpecVox em Ação: Análise de INTENSIDADE</li><li>Aula 4.6: Deixando o Soundtrap mais Leve (Otimização)</li><li>Aula 4.7: Avaliação SpecVox: Comunicação por Cores</li><li>Aula 4.8: Um Toque de Mágica: O Reverb (Finalização)</li></ul></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Módulo 5: Entregando o Pacote e Colaborando (A Finalização) <span class="arrow">▾</span></button>
+                    <button class="accordion-header"><div class="module-header-content"><span>Módulo 5:</span><span class="module-title">Entregando o Pacote e Colaborando</span></div> <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><ul><li>Aula 5.1: Salvando seu Projeto</li><li>Aula 5.2: Exportando e Importando Faixas (Backup e Colaboração)</li><li>Aula 5.3: Exportando sua Voz para Entrega (O Arquivo Final)</li><li>Aula 5.4: O Soundtrap Mudou! E Agora? (Navegando em um App Vivo)</li><li>Aula 5.5: O Padrão "Choir at Home": Como Nomear e Enviar</li></ul></div>
                 </div>
             </div>
@@ -258,7 +274,8 @@
 
                 <div class="bonus-card" style="margin: 30px auto; max-width: 800px;">
                     <div class="bonus-image">
-                        <img src="https://i.imgur.com/qax0FwU.png" alt="Bônus Montando Seus Playbacks">
+                        <img class="desktop-only" src="https://i.imgur.com/qax0FwU.png" alt="Bônus Montando Seus Playbacks">
+                        <img class="mobile-only" src="https://i.imgur.com/CXUNgfS.png" alt="Bônus Montando Seus Playbacks">
                     </div>
                     <div class="bonus-text">
                         <span>BÔNUS EXCLUSIVO</span>
@@ -272,7 +289,7 @@
                     <div class="new-price"><span>Por apenas</span> R$ 57,00</div>
                     <p>(Pagamento único)</p>
                 </div>
-                <a href="https://pag.ae/7_UtAvA17" target="_blank" class="cta-button">Quero garantir minha vaga com desconto</a>
+                <a href="https://pag.ae/7_UtAvA17" target="_blank" class="cta-button">GARANTIR MINHA VAGA</a>
                 <p style="margin-top: 15px; font-size: 0.9em;">Pagamento 100% seguro via PagSeguro.<br>Acesso imediato após a confirmação.</p>
             </div>
         </div>
@@ -284,31 +301,31 @@
             <h2>Perguntas Frequentes</h2>
             <div class="accordion" id="faq-accordion">
                 <div class="accordion-item">
-                    <button class="accordion-header">Para quem é este curso? <span class="arrow">▾</span></button>
+                    <button class="accordion-header">Para quem é este curso? <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><p>Para cantores de todos os níveis, do amador que nunca gravou ao profissional, que desejam autonomia para gravar e analisar a própria voz com qualidade, sem depender de equipamentos ou softwares complicados.</p></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Preciso de equipamentos caros? <span class="arrow">▾</span></button>
+                    <button class="accordion-header">Preciso de equipamentos caros? <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><p>Não! O curso é pensado para a sua realidade. Ensinamos a extrair o melhor som possível do equipamento que você já tem, seja o microfone do seu celular, um fone com microfone ou um microfone USB simples.</p></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Por quanto tempo terei acesso? <span class="arrow">▾</span></button>
+                    <button class="accordion-header">Por quanto tempo terei acesso? <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><p>O acesso é vitalício! Você pode assistir às aulas no seu ritmo, quantas vezes quiser, e terá acesso a todas as futuras atualizações sem custo adicional.</p></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">Como recebo o acesso ao curso? <span class="arrow">▾</span></button>
+                    <button class="accordion-header">Como recebo o acesso ao curso? <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><p>Imediatamente após a confirmação do pagamento pelo PagSeguro, você receberá um e-mail com todas as instruções e o link para acessar a área de membros do curso.</p></div>
                 </div>
                  <div class="accordion-item">
-                    <button class="accordion-header">E se eu tiver dúvidas durante o curso? <span class="arrow">▾</span></button>
+                    <button class="accordion-header">E se eu tiver dúvidas durante o curso? <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><p>Você não estará sozinho! Oferecemos múltiplos canais de suporte: nossa comunidade de apoio exclusiva no WhatsApp para interação com colegas, a seção de comentários dentro da própria plataforma de aulas, e um e-mail de contato direto com o professor para questões mais específicas.</p></div>
                 </div>
                  <div class="accordion-item">
-                    <button class="accordion-header">Posso compartilhar o acesso aos conteúdos? <span class="arrow">▾</span></button>
+                    <button class="accordion-header">Posso compartilhar o acesso aos conteúdos? <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><p>Não. O acesso ao curso é pessoal e intransferível, válido apenas para o aluno que realizou a matrícula. O compartilhamento de login e senha é proibido e monitorado. Essa prática pode resultar no bloqueio imediato e permanente do seu acesso, sem direito a reembolso, além de ser uma violação de direitos autorais (Art. 184 do Código Penal).</p></div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-header">O pagamento é seguro? <span class="arrow">▾</span></button>
+                    <button class="accordion-header">O pagamento é seguro? <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
                     <div class="accordion-content"><p>Sim. Todo o processo de pagamento é gerenciado pelo PagSeguro, uma das maiores e mais seguras plataformas de pagamento do Brasil, que protege seus dados e sua compra.</p></div>
                 </div>
             </div>
@@ -327,10 +344,10 @@
         <span class="lightbox-close">&times;</span>
         <div class="swiper-container lightbox-carousel">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d1.png" alt="Depoimento 1"></div>
-                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d3.png" alt="Depoimento 2"></div>
-                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d4.png" alt="Depoimento 3"></div>
-                <div class="swiper-slide"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d8.png" alt="Depoimento 4"></div>
+                <div class="swiper-slide"><div class="swiper-zoom-container"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d1.png" alt="Depoimento 1"></div></div>
+                <div class="swiper-slide"><div class="swiper-zoom-container"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d3.png" alt="Depoimento 2"></div></div>
+                <div class="swiper-slide"><div class="swiper-zoom-container"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d4.png" alt="Depoimento 3"></div></div>
+                <div class="swiper-slide"><div class="swiper-zoom-container"><img src="https://auladecanto.rafaelcaldas.com.br/depoimentos/d8.png" alt="Depoimento 4"></div></div>
             </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
@@ -408,17 +425,19 @@
             const testimonialImages = document.querySelectorAll('.testimonial-card img');
             
             const lightboxSwiper = new Swiper('.lightbox-carousel', {
+                zoom: true,
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
             });
 
-            testimonialImages.forEach(img => {
+            testimonialImages.forEach((img, index) => {
+                img.dataset.index = index;
                 img.addEventListener('click', () => {
-                    const index = parseInt(img.dataset.index, 10);
+                    const idx = parseInt(img.dataset.index, 10);
                     lightbox.classList.add('active');
-                    lightboxSwiper.slideTo(index, 0); // Vai para o slide clicado sem animação
+                    lightboxSwiper.slideTo(idx, 0); 
                 });
             });
 
@@ -446,4 +465,3 @@
     </script>
 </body>
 </html>
-
